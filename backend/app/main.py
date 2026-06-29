@@ -7,6 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.api import acts, clients, import_statement, payments, projects, summary
 from app.api.errors import register_exception_handlers
+from app.core.config import get_settings
 
 
 def create_app() -> FastAPI:
@@ -16,9 +17,10 @@ def create_app() -> FastAPI:
         description="Payments, projects, clients, and acts for ИП Громов А.В.",
     )
 
+    settings = get_settings()
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+        allow_origins=settings.cors_origins,
         allow_credentials=False,
         allow_methods=["*"],
         allow_headers=["*"],
