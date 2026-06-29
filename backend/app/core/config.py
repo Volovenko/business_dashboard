@@ -30,9 +30,9 @@ class Settings(BaseSettings):
         ge=1,
         description="Days after payment_date when a non-closed act becomes 'attention'.",
     )
-    cors_origins: list[str] = Field(
-        default=["http://localhost:5173", "http://127.0.0.1:5173"],
-        description="Allowed CORS origins. Set CORS_ORIGINS=https://your-app.onrender.com in prod.",
+    cors_origins: str = Field(
+        default="http://localhost:5173,http://127.0.0.1:5173",
+        description="Comma-separated CORS origins.",
     )
     owner_inn: str = Field(
         default="782934761208",
