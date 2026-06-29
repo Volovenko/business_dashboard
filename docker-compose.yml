@@ -16,7 +16,9 @@ services:
       retries: 5
 
   backend:
-    build: ./backend
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
     environment:
       DATABASE_URL: postgresql+asyncpg://dashboard:dashboard@postgres:5432/dashboard
       DATABASE_URL_SYNC: postgresql+psycopg2://dashboard:dashboard@postgres:5432/dashboard
