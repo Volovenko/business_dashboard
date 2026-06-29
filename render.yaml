@@ -10,7 +10,6 @@ services:
     runtime: docker
     dockerfilePath: ./backend/Dockerfile
     dockerContext: ./backend
-    plan: free
     envVars:
       - key: DATABASE_URL
         fromDatabase:
@@ -19,7 +18,7 @@ services:
       - key: ATTENTION_THRESHOLD_DAYS
         value: 30
       - key: CORS_ORIGINS
-        sync: false  # заполнить вручную после деплоя фронта
+        sync: false
 
   - type: web
     name: business-dashboard-frontend
@@ -27,10 +26,9 @@ services:
     buildCommand: npm install && npm run build
     staticPublishPath: ./dist
     rootDir: frontend
-    plan: free
     envVars:
       - key: VITE_API_URL
-        sync: false  # заполнить вручную URL бэкенда
+        sync: false
     routes:
       - type: rewrite
         source: /*
