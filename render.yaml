@@ -7,9 +7,10 @@ databases:
 services:
   - type: web
     name: business-dashboard-backend
-    runtime: docker
-    dockerfilePath: ./backend/Dockerfile
-    dockerContext: ./backend
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -e ".[dev]"
+    startCommand: alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: DATABASE_URL
         fromDatabase:
@@ -19,6 +20,8 @@ services:
         value: 30
       - key: CORS_ORIGINS
         sync: false
+      - key: PYTHON_VERSION
+        value: 3.12.0
 
   - type: web
     name: business-dashboard-frontend
